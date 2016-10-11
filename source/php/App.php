@@ -11,12 +11,15 @@ class App
     {
         global $wpdb;
         self::$wpdb = $wpdb;
-
         self::$dbTable = $wpdb->base_prefix . 'se_search_log';
 
-        add_action('admin_init', '\SearchEnhancer\App::install');
+        new \SearchEnhancer\SearchLogger();
     }
 
+    /**
+     * Creates the search log db table
+     * @return void
+     */
     public static function install()
     {
         update_option('search-enhancer-db-version', 0);
