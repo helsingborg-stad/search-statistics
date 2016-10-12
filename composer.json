@@ -1,0 +1,13 @@
+{
+    "name": "helsingborg-stad/wp-search-statistics",
+    "description": "Adds search statistics for WordPress",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kristoffer Svanmark",
+            "email": "kristoffer.svanmark@lexiconitkonsult.se"
+        }
+    ],
+    "require": {}
+}
