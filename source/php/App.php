@@ -1,6 +1,6 @@
 <?php
 
-namespace SearchEnhancer;
+namespace SearchStatistics;
 
 class App
 {
@@ -12,12 +12,12 @@ class App
     {
         global $wpdb;
         self::$wpdb = $wpdb;
-        self::$dbTable = $wpdb->base_prefix . 'se_search_log';
+        self::$dbTable = $wpdb->base_prefix . 'search_statistics_log';
 
         add_action('admin_enqueue_scripts', array($this, 'enqueueAdminStyle'));
 
-        self::$logger = new \SearchEnhancer\SearchLogger();
-        new \SearchEnhancer\DashboardWidget();
+        self::$logger = new \SearchStatistics\SearchLogger();
+        new \SearchStatistics\DashboardWidget();
     }
 
     /**
@@ -26,11 +26,11 @@ class App
      */
     public static function install()
     {
-        update_option('search-enhancer-db-version', 0);
+        update_option('search-statistics-db-version', 0);
         $charsetCollation = self::$wpdb->get_charset_collate();
         $tableName = self::$dbTable;
 
-        if (!empty(get_site_option('search-enhancer-db-version')) && self::$wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
+        if (!empty(get_site_option('search-statistics-db-version')) && self::$wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
             return;
         }
 
@@ -46,11 +46,11 @@ class App
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
 
-        update_option('search-enhancer-db-version', 1);
+        update_option('search-statistics-db-version', 1);
     }
 
     public function enqueueAdminStyle()
     {
-        wp_enqueue_style('search-enhancer', SEARCHENHANCER_URL . '/dist/css/search-enhancer.min.css', null, '1.0.0');
+        wp_enqueue_style('search-enhancer', SEARCHSTATISTICS_URL . '/dist/css/search-enhancer.min.css', null, '1.0.0');
     }
 }

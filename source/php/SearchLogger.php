@@ -1,6 +1,6 @@
 <?php
 
-namespace SearchEnhancer;
+namespace SearchStatistics;
 
 class SearchLogger
 {
@@ -37,7 +37,7 @@ class SearchLogger
         }
 
         $insertedId = $wpdb->insert(
-            \SearchEnhancer\App::$dbTable,
+            \SearchStatistics\App::$dbTable,
             array(
                 'query' => $query,
                 'results' => $hits,
@@ -71,7 +71,7 @@ class SearchLogger
     public function getLatest($limit = 10, $siteId = array(), $order = array('date_searched', 'desc'))
     {
         global $wpdb;
-        $table = \SearchEnhancer\App::$dbTable;
+        $table = \SearchStatistics\App::$dbTable;
 
         $sql = "SELECT query, results, date_searched FROM " . $table;
 
@@ -92,7 +92,7 @@ class SearchLogger
     public function getUnsuccessful($limit = 10, $siteId = array(), $order = array('date_searched', 'desc'))
     {
         global $wpdb;
-        $table = \SearchEnhancer\App::$dbTable;
+        $table = \SearchStatistics\App::$dbTable;
 
         $sql = "SELECT query, results, date_searched FROM " . $table;
 
@@ -115,7 +115,7 @@ class SearchLogger
     public function getPopular($limit = 10, $siteId = array())
     {
         global $wpdb;
-        $table = \SearchEnhancer\App::$dbTable;
+        $table = \SearchStatistics\App::$dbTable;
 
         $sql = "SELECT query, results, date_searched, count(id) AS num_searches FROM " . $table;
 

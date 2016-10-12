@@ -1,6 +1,6 @@
 <?php
 
-namespace SearchEnhancer;
+namespace SearchStatistics;
 
 class DashboardWidget
 {
@@ -35,7 +35,7 @@ class DashboardWidget
         $data = App::$logger->getLatest();
         $data = json_decode(json_encode($data));
 
-        include SEARCHENHANCER_TEMPLATE_PATH . 'stats-table.php';
+        include SEARCHSTATISTICS_TEMPLATE_PATH . 'stats-table.php';
     }
 
     public function unsuccessfulSearches()
@@ -43,7 +43,7 @@ class DashboardWidget
         $data = App::$logger->getUnsuccessful();
         $data = json_decode(json_encode($data));
 
-        include SEARCHENHANCER_TEMPLATE_PATH . 'stats-table.php';
+        include SEARCHSTATISTICS_TEMPLATE_PATH . 'stats-table.php';
     }
 
     public function popularSearches()
@@ -51,6 +51,6 @@ class DashboardWidget
         $data = App::$logger->getPopular();
         $data = json_decode(json_encode($data));
 
-        include SEARCHENHANCER_TEMPLATE_PATH . 'stats-popular-table.php';
+        include SEARCHSTATISTICS_TEMPLATE_PATH . 'stats-popular-table.php';
     }
 }
