@@ -14,7 +14,10 @@ class App
         self::$wpdb = $wpdb;
         self::$dbTable = $wpdb->base_prefix . 'se_search_log';
 
+        add_action('admin_enqueue_scripts', array($this, 'enqueueAdminStyle'));
+
         self::$logger = new \SearchEnhancer\SearchLogger();
+        new \SearchEnhancer\DashboardWidget();
     }
 
     /**
@@ -44,5 +47,10 @@ class App
         dbDelta($sql);
 
         update_option('search-enhancer-db-version', 1);
+    }
+
+    public function enqueueAdminStyle()
+    {
+        wp_enqueue_style('search-enhancer', SEARCHENHANCER_URL . '/dist/css/search-enhancer.min.css', null, '1.0.0');
     }
 }

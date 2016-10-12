@@ -75,13 +75,60 @@ class SearchLogger
 
         $sql = "SELECT query, results, date_searched FROM " . $table;
 
+        $sql .= " WHERE results > 0";
+
         if (is_numeric($siteId)) {
-            $sql .= " " . $wpdb->prepare("WHERE site_id = %d", $siteId);
+            $sql .= " " . $wpdb->prepare("site_id = %d", $siteId);
         } elseif (is_array($siteId) && count($siteId) > 0) {
-            $sql .= " WHERE site_id IN (" . implode(',', $siteId) . ")";
+            $sql .= " site_id IN (" . implode(',', $siteId) . ")";
         }
 
         $sql .= " ORDER BY {$order[0]} " . strtoupper($order[1]);
+        $sql .= " LIMIT " . $limit;
+
+        return $wpdb->get_results($sql);
+    }
+
+    public function getUnsuccessful($limit = 10, $siteId = array(), $order = array('date_searched', 'desc'))
+    {
+        global $wpdb;
+        $table = \SearchEnhancer\App::$dbTable;
+
+        $sql = "SELECT query, results, date_searched FROM " . $table;
+
+        $sql .= " WHERE 1=1";
+
+        if (is_numeric($siteId)) {
+            $sql .= " " . $wpdb->prepare("site_id = %d", $siteId);
+        } elseif (is_array($siteId) && count($siteId) > 0) {
+            $sql .= " site_id IN (" . implode(',', $siteId) . ")";
+        }
+
+        $sql .= " AND results = 0";
+
+        $sql .= " ORDER BY {$order[0]} " . strtoupper($order[1]);
+        $sql .= " LIMIT " . $limit;
+
+        return $wpdb->get_results($sql);
+    }
+
+    public function getPopular($limit = 10, $siteId = array())
+    {
+        global $wpdb;
+        $table = \SearchEnhancer\App::$dbTable;
+
+        $sql = "SELECT query, results, date_searched, count(id) AS num_searches FROM " . $table;
+
+        $sql .= " WHERE results > 0";
+
+        if (is_numeric($siteId)) {
+            $sql .= " " . $wpdb->prepare("site_id = %d", $siteId);
+        } elseif (is_array($siteId) && count($siteId) > 0) {
+            $sql .= " site_id IN (" . implode(',', $siteId) . ")";
+        }
+
+        $sql .= " GROUP BY query";
+        $sql .= " ORDER BY num_searches DESC";
         $sql .= " LIMIT " . $limit;
 
         return $wpdb->get_results($sql);
