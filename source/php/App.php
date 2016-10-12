@@ -6,6 +6,7 @@ class App
 {
     public static $wpdb = null;
     public static $dbTable = null;
+    public static $logger = null;
 
     public function __construct()
     {
@@ -13,7 +14,7 @@ class App
         self::$wpdb = $wpdb;
         self::$dbTable = $wpdb->base_prefix . 'se_search_log';
 
-        new \SearchEnhancer\SearchLogger();
+        self::$logger = new \SearchEnhancer\SearchLogger();
     }
 
     /**
