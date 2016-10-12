@@ -10,6 +10,8 @@ class App
 
     public function __construct()
     {
+        add_filter('acf/settings/load_json', array($this, 'loadJson'));
+
         global $wpdb;
         self::$wpdb = $wpdb;
         self::$dbTable = $wpdb->base_prefix . 'se_search_log';
@@ -18,6 +20,12 @@ class App
 
         self::$logger = new \SearchEnhancer\SearchLogger();
         new \SearchEnhancer\DashboardWidget();
+    }
+
+    public function loadJson($paths)
+    {
+        $paths[] = SEARCHENHANCER_PATH . 'source/acf-json';
+        return $paths;
     }
 
     /**
