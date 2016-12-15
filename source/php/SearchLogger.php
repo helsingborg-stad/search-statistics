@@ -52,7 +52,7 @@ class SearchLogger
 
         $cookie = array();
 
-        if (is_array($_COOKIE['search_log'])) {
+        if (isset($_COOKIE['search_log']) && is_array($_COOKIE['search_log'])) {
             $cookie = $_COOKIE['search_log'];
         }
 
