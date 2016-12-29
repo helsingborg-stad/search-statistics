@@ -13,19 +13,19 @@ class DashboardWidget
     {
         wp_add_dashboard_widget(
             'search-enhancer-latest',
-            __('Latest searches', 'search-enhancer'),
+            __('Latest searches', 'wp-search-statistics'),
             array($this, 'latestSearches')
         );
 
         wp_add_dashboard_widget(
             'search-enhancer-unsuccessful',
-            __('Unsuccessful searches', 'search-enhancer'),
+            __('Unsuccessful searches', 'wp-search-statistics'),
             array($this, 'unsuccessfulSearches')
         );
 
         wp_add_dashboard_widget(
             'search-enhancer-popular',
-            __('Popular searches', 'search-enhancer'),
+            __('Popular searches', 'wp-search-statistics'),
             array($this, 'popularSearches')
         );
     }
