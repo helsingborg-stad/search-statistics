@@ -22,7 +22,7 @@ define('SEARCHSTATISTICS_PATH', plugin_dir_path(__FILE__));
 define('SEARCHSTATISTICS_URL', plugins_url('', __FILE__));
 define('SEARCHSTATISTICS_TEMPLATE_PATH', SEARCHSTATISTICS_PATH . 'templates/');
 
-load_plugin_textdomain('search-enhancer', false, plugin_basename(dirname(__FILE__)) . '/languages');
+load_plugin_textdomain('wp-search-statistics', false, plugin_basename(dirname(__FILE__)) . '/languages');
 
 require_once SEARCHSTATISTICS_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
 require_once SEARCHSTATISTICS_PATH . 'Public.php';

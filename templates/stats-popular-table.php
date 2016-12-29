@@ -6,8 +6,8 @@
     <table>
         <thead>
             <th>#</th>
-            <th><?php _e('Keyword', 'search-enhancer'); ?></th>
-            <th class="hits"><?php _e('Searches', 'search-enhancer'); ?></th>
+            <th><?php _e('Keyword', 'wp-search-statistics'); ?></th>
+            <th class="hits"><?php _e('Searches', 'wp-search-statistics'); ?></th>
         </thead>
         <tbody>
             <?php $i = 0; foreach ($data as $item) : $i++; ?>
@@ -20,7 +20,7 @@
         </tbody>
     </table>
     <?php else : ?>
-    <p><?php _e('Nothing to show', 'search-enhancer'); ?></p>
+    <p><?php _e('Nothing to show', 'wp-search-statistics'); ?></p>
     <?php endif; ?>
 </section>
 

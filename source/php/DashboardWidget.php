@@ -32,7 +32,7 @@ class DashboardWidget
 
     public function latestSearches()
     {
-        $info = __('Shows the latest searches made and how many search results the search gave.', 'search-enhancer');
+        $info = __('Shows the latest searches made and how many search results the search gave.', 'wp-search-statistics');
 
         $data = App::$logger->getLatest();
         $data = json_decode(json_encode($data));
@@ -42,7 +42,7 @@ class DashboardWidget
 
     public function unsuccessfulSearches()
     {
-        $info = __('Shows searches that gave no search results.', 'search-enhancer');
+        $info = __('Shows searches that gave no search results.', 'wp-search-statistics');
 
         $data = App::$logger->getUnsuccessful();
         $data = json_decode(json_encode($data));
@@ -52,7 +52,7 @@ class DashboardWidget
 
     public function popularSearches()
     {
-        $info = __('Shows the most popular searches and how many times the search phrase have been searched for.', 'search-enhancer');
+        $info = __('Shows the most popular searches and how many times the search phrase have been searched for.', 'wp-search-statistics');
 
         $data = App::$logger->getPopular();
         $data = json_decode(json_encode($data));
