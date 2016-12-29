@@ -1,3 +1,6 @@
+<p class="info">
+    <?php echo $info; ?>
+</p>
 <section>
     <?php if (count($data) > 0) : ?>
     <table>

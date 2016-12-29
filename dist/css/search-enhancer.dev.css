@@ -2,6 +2,11 @@
   padding: 0;
   margin: 0; }
 
+[id*="search-enhancer"] .info {
+  background-color: #fdfdfd;
+  padding: 12px;
+  font-size: .8em; }
+
 [id*="search-enhancer"] section h2 {
   margin: 0;
   padding: 5px 12px;
