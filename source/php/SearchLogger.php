@@ -77,12 +77,12 @@ class SearchLogger
 
         $sql .= " WHERE results > 0";
 
-        if (is_numeric($siteId)) {
+        if (LOCAL_SITE_STATS === true) {
+            $sql .= " AND site_id = '" . get_current_blog_id() . "'";
+        } elseif (is_numeric($siteId)) {
             $sql .= " " . $wpdb->prepare("site_id = %d", $siteId);
         } elseif (is_array($siteId) && count($siteId) > 0) {
             $sql .= " site_id IN (" . implode(',', $siteId) . ")";
-        } elseif (!count($siteId) && LOCAL_SITE_STATS) {
-            $sql .= " site_id = '" . get_current_blog_id() . "'";
         }
 
         $sql .= " ORDER BY {$order[0]} " . strtoupper($order[1]);
@@ -100,12 +100,12 @@ class SearchLogger
 
         $sql .= " WHERE 1=1";
 
-        if (is_numeric($siteId)) {
+        if (LOCAL_SITE_STATS === true) {
+            $sql .= " AND site_id = '" . get_current_blog_id() . "'";
+        } elseif (is_numeric($siteId)) {
             $sql .= " " . $wpdb->prepare("site_id = %d", $siteId);
         } elseif (is_array($siteId) && count($siteId) > 0) {
             $sql .= " site_id IN (" . implode(',', $siteId) . ")";
-        } elseif (!count($siteId) && LOCAL_SITE_STATS) {
-            $sql .= " site_id = '" . get_current_blog_id() . "'";
         }
 
         $sql .= " AND results = 0";
@@ -125,12 +125,12 @@ class SearchLogger
 
         $sql .= " WHERE results > 0";
 
-        if (is_numeric($siteId)) {
+        if (LOCAL_SITE_STATS === true) {
+            $sql .= " AND site_id = '" . get_current_blog_id() . "'";
+        } elseif (is_numeric($siteId)) {
             $sql .= " " . $wpdb->prepare("site_id = %d", $siteId);
         } elseif (is_array($siteId) && count($siteId) > 0) {
             $sql .= " site_id IN (" . implode(',', $siteId) . ")";
-        } elseif (!count($siteId) && LOCAL_SITE_STATS) {
-            $sql .= " site_id = '" . get_current_blog_id() . "'";
         }
 
         $sql .= " GROUP BY query";
