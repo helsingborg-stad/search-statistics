@@ -18,6 +18,11 @@ if (! defined('WPINC')) {
     die;
 }
 
+//Default value of constants
+if (!defined('LOCAL_SITE_STATS')) {
+    define('LOCAL_SITE_STATS', false);
+}
+
 define('SEARCHSTATISTICS_PATH', plugin_dir_path(__FILE__));
 define('SEARCHSTATISTICS_URL', plugins_url('', __FILE__));
 define('SEARCHSTATISTICS_TEMPLATE_PATH', SEARCHSTATISTICS_PATH . 'templates/');
