@@ -75,7 +75,7 @@ class SearchLogger
 
         $sql = "SELECT query, results, date_searched FROM " . $table;
 
-        $sql .= " WHERE results > 0";
+        $sql .= " WHERE query != '' AND results > 0";
 
         if (LOCAL_SITE_STATS === true) {
             $sql .= " AND site_id = '" . get_current_blog_id() . "'";
@@ -98,7 +98,7 @@ class SearchLogger
 
         $sql = "SELECT query, results, date_searched FROM " . $table;
 
-        $sql .= " WHERE 1=1";
+        $sql .= " WHERE query != ''";
 
         if (LOCAL_SITE_STATS === true) {
             $sql .= " AND site_id = '" . get_current_blog_id() . "'";
@@ -123,7 +123,7 @@ class SearchLogger
 
         $sql = "SELECT query, results, date_searched, count(id) AS num_searches FROM " . $table;
 
-        $sql .= " WHERE results > 0";
+        $sql .= " WHERE query != '' AND results > 0";
 
         if (LOCAL_SITE_STATS === true) {
             $sql .= " AND site_id = '" . get_current_blog_id() . "'";
