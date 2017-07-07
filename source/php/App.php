@@ -15,6 +15,7 @@ class App
         self::$dbTable = $wpdb->base_prefix . 'search_statistics_log';
 
         add_action('admin_enqueue_scripts', array($this, 'enqueueAdminStyle'));
+        add_action('admin_init', array($this, 'updateTables'));
 
         self::$logger = new \SearchStatistics\SearchLogger();
         new \SearchStatistics\DashboardWidget();
@@ -39,6 +40,7 @@ class App
             query varchar(255) DEFAULT NULL,
             results bigint(20) DEFAULT 0 NOT NULL,
             site_id bigint(20) DEFAULT NULL,
+            logged_in tinyint(1) DEFAULT 0 NOT NULL,
             date_searched timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
             UNIQUE KEY id (id)
         ) $charsetCollation;";
@@ -46,7 +48,19 @@ class App
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
 
-        update_option('search-statistics-db-version', 1);
+        update_option('search-statistics-db-version', 2);
+    }
+
+    public function updateTables()
+    {
+        global $wpdb;
+
+        if (get_site_option('search-statistics-db-version') < 2) {
+            $tableName = self::$dbTable;
+            $wpdb->query("ALTER TABLE $tableName ADD logged_in tinyint(1) DEFAULT 0 NOT NULL");
+
+            update_option('search-statistics-db-version', 2);
+        }
     }
 
     public function enqueueAdminStyle()

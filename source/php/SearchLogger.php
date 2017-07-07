@@ -26,6 +26,7 @@ class SearchLogger
         $query = get_search_query();
         $hits = $wp_query->found_posts;
         $siteId = null;
+        $loggedIn = is_user_logged_in();
 
 
         if (isset($_COOKIE['search_log']) && is_array(unserialize(stripslashes($_COOKIE['search_log']))) && in_array($query, unserialize(stripslashes($_COOKIE['search_log'])))) {
@@ -41,10 +42,12 @@ class SearchLogger
             array(
                 'query' => $query,
                 'results' => $hits,
-                'site_id' => $siteId
+                'site_id' => $siteId,
+                'logged_in' => $loggedIn
             ),
             array(
                 '%s',
+                '%d',
                 '%d',
                 '%d'
             )
@@ -73,7 +76,7 @@ class SearchLogger
         global $wpdb;
         $table = \SearchStatistics\App::$dbTable;
 
-        $sql = "SELECT query, results, date_searched FROM " . $table;
+        $sql = "SELECT query, results, date_searched, logged_in FROM " . $table;
 
         $sql .= " WHERE query != '' AND results > 0";
 
@@ -96,7 +99,7 @@ class SearchLogger
         global $wpdb;
         $table = \SearchStatistics\App::$dbTable;
 
-        $sql = "SELECT query, results, date_searched FROM " . $table;
+        $sql = "SELECT query, results, date_searched, logged_in FROM " . $table;
 
         $sql .= " WHERE query != ''";
 
@@ -121,7 +124,7 @@ class SearchLogger
         global $wpdb;
         $table = \SearchStatistics\App::$dbTable;
 
-        $sql = "SELECT query, results, date_searched, count(id) AS num_searches FROM " . $table;
+        $sql = "SELECT query, results, date_searched, logged_in, count(id) AS num_searches FROM " . $table;
 
         $sql .= " WHERE query != '' AND results > 0";
 
