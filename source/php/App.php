@@ -57,9 +57,15 @@ class App
 
         if (get_site_option('search-statistics-db-version') < 2) {
             $tableName = self::$dbTable;
-            $wpdb->query("ALTER TABLE $tableName ADD logged_in tinyint(1) DEFAULT 0 NOT NULL");
+            $column = $wpdb->get_results($wpdb->prepare(
+                "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s AND COLUMN_NAME = %s ",
+                DB_NAME, $tableName, 'logged_in'
+            ));
 
-            update_option('search-statistics-db-version', 2);
+            if (empty($column)) {
+                $wpdb->query("ALTER TABLE $tableName ADD logged_in tinyint(1) DEFAULT 0 NOT NULL");
+                update_option('search-statistics-db-version', 2);
+            }
         }
     }
 
