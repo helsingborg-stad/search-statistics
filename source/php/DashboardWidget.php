@@ -52,7 +52,7 @@ class DashboardWidget
 
     public function popularSearches()
     {
-        $info = __('Shows the most popular searches and how many times the search phrase have been searched for.', 'wp-search-statistics');
+        $info = __('Shows the most popular searches the last week and how many times the search phrase have been searched for.', 'wp-search-statistics');
 
         $data = App::$logger->getPopular();
         $data = json_decode(json_encode($data));

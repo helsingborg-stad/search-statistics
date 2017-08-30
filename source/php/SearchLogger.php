@@ -125,8 +125,8 @@ class SearchLogger
         $table = \SearchStatistics\App::$dbTable;
 
         $sql = "SELECT query, results, date_searched, logged_in, count(id) AS num_searches FROM " . $table;
-
         $sql .= " WHERE query != '' AND results > 0";
+        $sql .= " AND date_searched >= DATE(NOW()) - INTERVAL 7 DAY";
 
         if (LOCAL_SITE_STATS === true) {
             $sql .= " AND site_id = '" . get_current_blog_id() . "'";

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Search Statistics\n"
-"POT-Creation-Date: 2017-07-07 09:12+0200\n"
-"PO-Revision-Date: 2017-07-07 09:12+0200\n"
+"POT-Creation-Date: 2017-08-30 14:01+0200\n"
+"PO-Revision-Date: 2017-08-30 14:01+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 2.0.3\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: wp-search-statistics.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -44,10 +44,11 @@ msgstr "Visar sökningar som inte gav några resultat."
 
 #: source/php/DashboardWidget.php:55
 msgid ""
-"Shows the most popular searches and how many times the search phrase have "
-"been searched for."
+"Shows the most popular searches the last week and how many times the search "
+"phrase have been searched for."
 msgstr ""
-"Visar de mest populära sökningarna och hur många gånger sökningen har gjorts."
+"Visar senaste veckans mest populära sökningarna och hur många gånger "
+"sökningen har gjorts."
 
 #: templates/stats-popular-table.php:9 templates/stats-table.php:9
 msgid "Keyword"
@@ -57,7 +58,7 @@ msgstr "Sökord"
 msgid "Searches"
 msgstr "Sökningar"
 
-#: templates/stats-popular-table.php:23 templates/stats-table.php:26
+#: templates/stats-popular-table.php:23 templates/stats-table.php:25
 msgid "Nothing to show"
 msgstr "Inget att visa"
 
