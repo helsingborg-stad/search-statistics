@@ -29,14 +29,11 @@ define('SEARCHSTATISTICS_TEMPLATE_PATH', SEARCHSTATISTICS_PATH . 'templates/');
 
 load_plugin_textdomain('wp-search-statistics', false, plugin_basename(dirname(__FILE__)) . '/languages');
 
-require_once SEARCHSTATISTICS_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
+// Autoload from plugin
+if (file_exists(SEARCHSTATISTICS_PATH . 'vendor/autoload.php')) {
+    require_once SEARCHSTATISTICS_PATH . 'vendor/autoload.php';
+}
 require_once SEARCHSTATISTICS_PATH . 'Public.php';
-
-// Instantiate and register the autoloader
-$loader = new SearchEnhancer\Vendor\Psr4ClassLoader();
-$loader->addPrefix('SearchStatistics', SEARCHSTATISTICS_PATH);
-$loader->addPrefix('SearchStatistics', SEARCHSTATISTICS_PATH . 'source/php/');
-$loader->register();
 
 // Start application
 new SearchStatistics\App();
