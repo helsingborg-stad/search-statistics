@@ -4,6 +4,7 @@
   "description": "Enhanced search with synonyms (if using ElasticPress) and statistics",
   "main": "",
   "scripts": {
+    "build": "",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
