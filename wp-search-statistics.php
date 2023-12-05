@@ -4,7 +4,7 @@
  * Plugin Name:       WP Search Statistics
  * Plugin URI:
  * Description:       Enhanced search with synonyms (if using ElasticPress) and statistics
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author:            Kristoffer Svanmark
  * Author URI:
  * License:           MIT
