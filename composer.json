@@ -1,5 +1,5 @@
 {
-    "name": "helsingborg-stad/wp-search-statistics",
+    "name": "helsingborg-stad/search-statistics",
     "description": "Adds search statistics for WordPress",
     "type": "wordpress-plugin",
     "license": "MIT",
