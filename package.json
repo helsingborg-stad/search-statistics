@@ -1,6 +1,6 @@
 {
     "name": "search-enhancer",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Enhanced search with synonyms (if using ElasticPress) and statistics",
     "main": "",
     "scripts": {
