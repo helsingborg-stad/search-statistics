@@ -78,6 +78,6 @@ class App
 
     public function enqueueAdminStyle()
     {
-        $this->wpEnqueue->add('css/search-enhancer"', [], '1.0.0');
+        $this->wpEnqueue->add('css/search-enhancer.css', [], '1.0.0');
     }
 }
