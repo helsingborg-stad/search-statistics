@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SearchStatistics;
 
 class DashboardWidget
@@ -14,19 +16,19 @@ class DashboardWidget
         wp_add_dashboard_widget(
             'search-enhancer-latest',
             __('Latest searches', 'wp-search-statistics'),
-            array($this, 'latestSearches')
+            array($this, 'latestSearches'),
         );
 
         wp_add_dashboard_widget(
             'search-enhancer-unsuccessful',
             __('Unsuccessful searches', 'wp-search-statistics'),
-            array($this, 'unsuccessfulSearches')
+            array($this, 'unsuccessfulSearches'),
         );
 
         wp_add_dashboard_widget(
             'search-enhancer-popular',
             __('Popular searches', 'wp-search-statistics'),
-            array($this, 'popularSearches')
+            array($this, 'popularSearches'),
         );
     }
 
