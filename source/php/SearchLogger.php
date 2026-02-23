@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SearchStatistics;
 
 class SearchLogger
@@ -28,7 +30,6 @@ class SearchLogger
         $siteId = null;
         $loggedIn = is_user_logged_in();
 
-
         if (isset($_COOKIE['search_log']) && is_array(unserialize(stripslashes($_COOKIE['search_log']))) && in_array($query, unserialize(stripslashes($_COOKIE['search_log'])))) {
             return;
         }
@@ -43,14 +44,14 @@ class SearchLogger
                 'query' => $query,
                 'results' => $hits,
                 'site_id' => $siteId,
-                'logged_in' => $loggedIn
+                'logged_in' => $loggedIn,
             ),
             array(
                 '%s',
                 '%d',
                 '%d',
-                '%d'
-            )
+                '%d',
+            ),
         );
 
         $cookie = array();
@@ -61,7 +62,7 @@ class SearchLogger
 
         $cookie[] = $query;
 
-        setcookie('search_log', serialize($cookie), time() + (86400 * 1), "/");
+        setcookie('search_log', serialize($cookie), time() + (86_400 * 1), '/');
     }
 
     /**
@@ -76,20 +77,20 @@ class SearchLogger
         global $wpdb;
         $table = \SearchStatistics\App::$dbTable;
 
-        $sql = "SELECT query, results, date_searched, logged_in FROM " . $table;
+        $sql = 'SELECT query, results, date_searched, logged_in FROM ' . $table;
 
         $sql .= " WHERE query != '' AND results > 0";
 
         if (LOCAL_SITE_STATS === true) {
             $sql .= " AND site_id = '" . get_current_blog_id() . "'";
         } elseif (is_numeric($siteId)) {
-            $sql .= " " . $wpdb->prepare("site_id = %d", $siteId);
+            $sql .= ' ' . $wpdb->prepare('site_id = %d', $siteId);
         } elseif (is_array($siteId) && count($siteId) > 0) {
-            $sql .= " site_id IN (" . implode(',', $siteId) . ")";
+            $sql .= ' site_id IN (' . implode(',', $siteId) . ')';
         }
 
         $sql .= " ORDER BY {$order[0]} " . strtoupper($order[1]);
-        $sql .= " LIMIT " . $limit;
+        $sql .= ' LIMIT ' . $limit;
 
         return $wpdb->get_results($sql);
     }
@@ -99,22 +100,22 @@ class SearchLogger
         global $wpdb;
         $table = \SearchStatistics\App::$dbTable;
 
-        $sql = "SELECT query, results, date_searched, logged_in FROM " . $table;
+        $sql = 'SELECT query, results, date_searched, logged_in FROM ' . $table;
 
         $sql .= " WHERE query != ''";
 
         if (LOCAL_SITE_STATS === true) {
             $sql .= " AND site_id = '" . get_current_blog_id() . "'";
         } elseif (is_numeric($siteId)) {
-            $sql .= " " . $wpdb->prepare("site_id = %d", $siteId);
+            $sql .= ' ' . $wpdb->prepare('site_id = %d', $siteId);
         } elseif (is_array($siteId) && count($siteId) > 0) {
-            $sql .= " site_id IN (" . implode(',', $siteId) . ")";
+            $sql .= ' site_id IN (' . implode(',', $siteId) . ')';
         }
 
-        $sql .= " AND results = 0";
+        $sql .= ' AND results = 0';
 
         $sql .= " ORDER BY {$order[0]} " . strtoupper($order[1]);
-        $sql .= " LIMIT " . $limit;
+        $sql .= ' LIMIT ' . $limit;
 
         return $wpdb->get_results($sql);
     }
@@ -124,21 +125,21 @@ class SearchLogger
         global $wpdb;
         $table = \SearchStatistics\App::$dbTable;
 
-        $sql = "SELECT query, results, date_searched, logged_in, count(id) AS num_searches FROM " . $table;
+        $sql = 'SELECT query, results, date_searched, logged_in, count(id) AS num_searches FROM ' . $table;
         $sql .= " WHERE query != '' AND results > 0";
-        $sql .= " AND date_searched >= DATE(NOW()) - INTERVAL 7 DAY";
+        $sql .= ' AND date_searched >= DATE(NOW()) - INTERVAL 7 DAY';
 
         if (LOCAL_SITE_STATS === true) {
             $sql .= " AND site_id = '" . get_current_blog_id() . "'";
         } elseif (is_numeric($siteId)) {
-            $sql .= " " . $wpdb->prepare("site_id = %d", $siteId);
+            $sql .= ' ' . $wpdb->prepare('site_id = %d', $siteId);
         } elseif (is_array($siteId) && count($siteId) > 0) {
-            $sql .= " site_id IN (" . implode(',', $siteId) . ")";
+            $sql .= ' site_id IN (' . implode(',', $siteId) . ')';
         }
 
-        $sql .= " GROUP BY query";
-        $sql .= " ORDER BY num_searches DESC";
-        $sql .= " LIMIT " . $limit;
+        $sql .= ' GROUP BY query';
+        $sql .= ' ORDER BY num_searches DESC';
+        $sql .= ' LIMIT ' . $limit;
 
         return $wpdb->get_results($sql);
     }

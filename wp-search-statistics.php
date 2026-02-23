@@ -12,10 +12,12 @@
  * Text Domain:       wp-search-statistics
  * Domain Path:       /languages
  */
+use WpService\Implementations\NativeWpService;
+use WpUtilService\WpUtilService;
 
- // Protect agains direct file access
-if (! defined('WPINC')) {
-    die;
+// Protect agains direct file access
+if (!defined('WPINC')) {
+    die();
 }
 
 //Default value of constants
@@ -35,7 +37,10 @@ if (file_exists(SEARCHSTATISTICS_PATH . 'vendor/autoload.php')) {
 }
 require_once SEARCHSTATISTICS_PATH . 'Public.php';
 
+$wpService = new NativeWpService();
+$wpUtilService = new WpUtilService($wpService);
+
 // Start application
-new SearchStatistics\App();
+new SearchStatistics\App($wpUtilService->enqueue(__DIR__));
 
 register_activation_hook(__FILE__, '\SearchStatistics\App::install');

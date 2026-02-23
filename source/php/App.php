@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SearchStatistics;
+
+use WpUtilService\Features\Enqueue\EnqueueManager;
 
 class App
 {
@@ -8,8 +12,9 @@ class App
     public static $dbTable = null;
     public static $logger = null;
 
-    public function __construct()
-    {
+    public function __construct(
+        private EnqueueManager $wpEnqueue,
+    ) {
         global $wpdb;
         self::$wpdb = $wpdb;
         self::$dbTable = $wpdb->base_prefix . 'search_statistics_log';
@@ -31,11 +36,11 @@ class App
         $charsetCollation = self::$wpdb->get_charset_collate();
         $tableName = self::$dbTable;
 
-        if (!empty(get_site_option('search-statistics-db-version')) && self::$wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) {
+        if (!empty(get_site_option('search-statistics-db-version')) && self::$wpdb->get_var("SHOW TABLES LIKE '{$tableName}'") == $tableName) {
             return;
         }
 
-        $sql = "CREATE TABLE $tableName (
+        $sql = "CREATE TABLE {$tableName} (
             id bigint(20) NOT NULL AUTO_INCREMENT,
             query varchar(255) DEFAULT NULL,
             results bigint(20) DEFAULT 0 NOT NULL,
@@ -43,9 +48,9 @@ class App
             logged_in tinyint(1) DEFAULT 0 NOT NULL,
             date_searched timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
             UNIQUE KEY id (id)
-        ) $charsetCollation;";
+        ) {$charsetCollation};";
 
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta($sql);
 
         update_option('search-statistics-db-version', 2);
@@ -58,12 +63,14 @@ class App
         if (get_site_option('search-statistics-db-version') < 2) {
             $tableName = self::$dbTable;
             $column = $wpdb->get_results($wpdb->prepare(
-                "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s AND COLUMN_NAME = %s ",
-                DB_NAME, $tableName, 'logged_in'
+                'SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s AND COLUMN_NAME = %s ',
+                DB_NAME,
+                $tableName,
+                'logged_in',
             ));
 
             if (empty($column)) {
-                $wpdb->query("ALTER TABLE $tableName ADD logged_in tinyint(1) DEFAULT 0 NOT NULL");
+                $wpdb->query("ALTER TABLE {$tableName} ADD logged_in tinyint(1) DEFAULT 0 NOT NULL");
                 update_option('search-statistics-db-version', 2);
             }
         }
@@ -71,6 +78,6 @@ class App
 
     public function enqueueAdminStyle()
     {
-        wp_enqueue_style('search-enhancer', SEARCHSTATISTICS_URL . '/dist/css/search-enhancer.min.css', null, '1.0.0');
+        $this->wpEnqueue->add('css/search-enhancer.css', [], '1.0.0');
     }
 }
